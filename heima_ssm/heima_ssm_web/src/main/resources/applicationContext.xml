@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			    http://www.springframework.org/schema/beans/spring-beans.xsd
+			    http://www.springframework.org/schema/context
+			    http://www.springframework.org/schema/context/spring-context.xsd
+			    http://www.springframework.org/schema/aop
+			    http://www.springframework.org/schema/aop/spring-aop.xsd
+			    http://www.springframework.org/schema/tx
+			    http://www.springframework.org/schema/tx/spring-tx.xsd
+			    http://www.springframework.org/schema/mvc
+			    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+        <context:component-scan base-package="com.itheima.ssm"/>
+
+        <!--开始配置dao-->
+
+        <!--引入外部资源文件-->
+        <context:property-placeholder location="classpath:jdbcConfig.properties"/>
+        <!--配置数据源-->
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <property name="driverClass" value="${jdbc.driver}"/>
+                <property name="jdbcUrl" value="${jdbc.url}"/>
+                <property name="user" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+        </bean>
+
+        <!--将mybatis交给spring管理-->
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSource"/>
+                <!-- 传入PageHelper的插件 -->
+                <property name="plugins">
+                        <array>
+                                <!-- 传入插件的对象 -->
+                                <bean class="com.github.pagehelper.PageInterceptor">
+                                        <property name="properties">
+                                                <props>
+                                                        <prop key="helperDialect">mysql</prop>
+                                                        <prop key="reasonable">true</prop>
+                                                </props>
+                                        </property>
+                                </bean>
+                        </array>
+                </property>
+                <property name="typeAliasesPackage" value="com.itheima.ssm.domain"/>
+        </bean>
+
+        <!--创建动态代理对象-->
+        <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+                <property name="basePackage" value="com.itheima.ssm.dao"/>
+        </bean>
+
+        <!--配置dao结束-->
+
+
+        <!--开始配置service-->
+        <!-- 配置Spring的声明式事务管理 -->
+        <!-- 配置事务管理器 -->
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <property name="dataSource" ref="dataSource"/>
+        </bean>
+
+        <!--创建事务通知bean对象-->
+        <tx:advice id="myAdvice" transaction-manager="transactionManager">
+                <tx:attributes>
+                        <tx:method name="*" read-only="false" propagation="REQUIRED" isolation="DEFAULT"/>
+                        <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
+                </tx:attributes>
+        </tx:advice>
+        <!--事务bean与切入点关联-->
+        <aop:config>
+                <aop:pointcut id="pt1" expression="execution(* com.itheima.ssm.service.impl.*.*(..))"/>
+                <aop:advisor advice-ref="myAdvice" pointcut-ref="pt1"/>
+        </aop:config>
+
+        <!--配置service结束-->
+
+
+
+
+
+
+
+
+</beans>
