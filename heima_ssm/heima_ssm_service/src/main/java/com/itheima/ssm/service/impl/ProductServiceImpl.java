@@ -15,4 +15,20 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll() {
         return productDao.findAll();
     }
+
+    @Override
+    public void saveProduct(Product product) {
+        productDao.saveProduct(product);
+    }
+
+    @Override
+    public void delProduct(String[] id) {
+        if(id != null && id.length>0){
+            for (String s : id) {
+                productDao.delProduct(s);
+            }
+        }
+    }
+
+
 }

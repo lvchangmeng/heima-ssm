@@ -7,4 +7,12 @@
     <select id="findAll" resultType="product">
         select * from product
     </select>
+
+    <insert id="saveProduct" parameterType="product">
+        insert into product (productNum,productName,departureTime,cityName,productPrice,productStatus,productDesc) values(#{productNum},#{productName},#{departureTime},#{cityName},#{productPrice},#{productStatus},#{productDesc})
+    </insert>
+
+    <delete id="delProduct" parameterType="String">
+        delete from product where id = #{id}
+    </delete>
 </mapper>

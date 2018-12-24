@@ -1,6 +1,7 @@
 package com.itheima.ssm.domain;
 
-import com.itheima.ssm.utils.DateUtils;
+
+import com.itheima.ssm.utils.StringToDate;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class Product implements Serializable {
 
     public String getDepartureTimeStr() {
         if(departureTime != null){
-            departureTimeStr = DateUtils.date2String(departureTime, "yyyy-MM-dd HH:mm:ss");
+           departureTimeStr = StringToDate.date2String(departureTime, "yyyy-MM-dd HH:mm:ss");
         }
         return departureTimeStr;
     }
