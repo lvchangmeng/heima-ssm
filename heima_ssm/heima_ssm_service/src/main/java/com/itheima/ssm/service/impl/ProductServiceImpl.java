@@ -12,6 +12,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
 
+
     public List<Product> findAll() {
         return productDao.findAll();
     }
@@ -29,6 +30,18 @@ public class ProductServiceImpl implements ProductService {
             }
         }
     }
+
+    /**
+     * 模糊查询
+     * @param str
+     * @return
+     */
+    @Override
+    public List<Product> findDim(String str) {
+            return productDao.findDim(str);
+    }
+
+
 
 
 }

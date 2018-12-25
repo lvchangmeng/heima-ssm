@@ -22,4 +22,17 @@ public interface ProductDao {
      */
     public void delProduct(String id);
 
+    /**
+     * 模糊查询
+     * @return
+     */
+    public List<Product> findDim(String str);
+
+    /**
+     * 根据id查询产品
+     * @param id
+     * @return
+     */
+    public Product findById(String id);
+
 }

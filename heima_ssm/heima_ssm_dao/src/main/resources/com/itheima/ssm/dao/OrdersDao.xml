@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.ssm.dao.OrdersDao">
+    
+    
+    <resultMap id="ordersMap" type="orders">
+
+       <id property="id" column="id"/>
+        <result property="orderNum" column="orderNum"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <result property="payType" column="payType"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <!--一对一映射关系:配置封装Product对象的内容-->
+        <association property="product" javaType="product" column="productId">
+            <id property="id" column="id"></id>
+            <result property="productNum" column="productNum"></result>
+            <result property="productName" column="productName"></result>
+            <result property="cityName" column="cityName"></result>
+            <result property="departureTime" column="departureTime"></result>
+            <result property="productPrice" column="productPrice"></result>
+            <result property="productDesc" column="productDesc"></result>
+            <result property="productStatus" column="productStatus"></result>
+        </association>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="ordersMap">
+
+        select o.*,p.PRODUCTNAME,p.CITYNAME from orders o ,product p where o.productid = p.id
+    </select>
+</mapper>
