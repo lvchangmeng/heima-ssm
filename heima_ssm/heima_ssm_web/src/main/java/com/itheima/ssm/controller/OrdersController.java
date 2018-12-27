@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -35,4 +36,14 @@ public class OrdersController {
         model.addAttribute("orders",oid);
         return "orders-show";
     }
+
+    @RequestMapping("/findDim")
+    public String findDim(HttpServletRequest request){
+        String fo = request.getParameter("foo");
+        List<Orders> dim = ordersService.findDim(fo);
+        request.setAttribute("ordersList",dim);
+        return "orders-list";
+    }
+
+
 }

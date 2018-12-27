@@ -166,7 +166,7 @@
 			<!-- 内容头部 -->
 			<section class="content-header">
 				<h1>
-					数据管理 <small>数据列表</small>
+					订单数据管理 <small>数据列表</small>
 				</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -195,7 +195,7 @@
 								<div class="form-group form-inline">
 									<div class="btn-group">
 										<button type="button" class="btn btn-default" title="新建"
-											onclick="location.href='${pageContext.request.contextPath}/pages/product-add.jsp'">
+											onclick="location.href='#'">
 											<i class="fa fa-file-o"></i> 新建
 										</button>
 										<button type="button" class="btn btn-default" title="删除">
@@ -213,13 +213,17 @@
 									</div>
 								</div>
 							</div>
+							<form id="form_orders" action="${pageContext.request.contextPath}/orders/findDim">
 							<div class="box-tools pull-right">
 								<div class="has-feedback">
-									<input type="text" class="form-control input-sm"
-										placeholder="搜索"> <span
-										class="glyphicon glyphicon-search"></span>
+									<input type="text" name="foo" class="form-control input-sm"
+										placeholder="搜索"/>
+									<a href="javascript:dim();">
+									<span class="glyphicon glyphicon-search"></span>
+									</a>
 								</div>
 							</div>
+							</form>
 							<!--工具栏/-->
 
 							<!--数据列表-->
@@ -240,7 +244,23 @@
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach items="${ordersList}" var="orders">
 
+									<tr>
+										<td><input name="ids" type="checkbox"></td>
+										<td>${orders.id }</td>
+										<td>${orders.orderNum }</td>
+										<td>${orders.product.productName }</td>
+										<td>${orders.product.productPrice }</td>
+										<td>${orders.orderTimeStr }</td>
+										<td class="text-center">${orders.orderStatusStr }</td>
+										<td class="text-center">
+											<button type="button" class="btn bg-olive btn-xs">订单</button>
+											<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/orders/findById?id=${orders.id}'">详情</button>
+											<button type="button" class="btn bg-olive btn-xs">编辑</button>
+										</td>
+									</tr>
+								</c:forEach>
 
 									<c:forEach items="${page.list}" var="orders">
 
@@ -445,7 +465,7 @@
 			var pageSize = $("#changePageSize").val();
 
 			//向服务器发送请求，改变没页显示条数
-			location.href = "${pageContext.request.contextPath}/orders/findAll.do?pageNum=1&pageSize="
+			location.href = "${pageContext.request.contextPath}/orders/findAll?pageNum=1&pageSize="
 					+ pageSize;
 		}
 		$(document).ready(function() {
@@ -488,6 +508,12 @@
 				$(this).data("clicks", !clicks);
 			});
 		});
+	</script>
+
+	<script>
+        function dim() {
+            document.getElementById("form_orders").submit();
+        }
 	</script>
 </body>
 

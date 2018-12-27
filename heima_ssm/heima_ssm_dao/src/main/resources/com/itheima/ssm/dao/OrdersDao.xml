@@ -19,6 +19,8 @@
 
         <association property="member" javaType="member" column="memberId" select="com.itheima.ssm.dao.MemberDao.findById"></association>
 
+        <collection property="travellers" ofType="traveller" column="id" select="com.itheima.ssm.dao.TravellerDao.findById" fetchType="lazy"></collection>
+
 
 
     </resultMap>
@@ -31,4 +33,9 @@
     <select id="findById" parameterType="String" resultMap="ordersMap">
         select * from orders where id = #{id}
     </select>
+
+    <select id="findDim" parameterType="String" resultMap="ordersMap">
+        select * from orders where orderNum like '%${value}%' or orderStatus like '%${value}%'
+    </select>
+
 </mapper>

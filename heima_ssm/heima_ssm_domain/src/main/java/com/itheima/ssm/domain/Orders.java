@@ -16,12 +16,18 @@ public class Orders implements Serializable {
     private int orderStatus;//订单状态(0 未支付 1 已支付)
     private String orderStatusStr;
     private int peopleCount;//出行人数
+    //建立订单与产品的一对一关系
     private Product product;
+    //建立订单与旅客的一对多关系
     private List<Traveller> travellers;
+    //建立订单与会员的一对一关系
     private Member member;
     private Integer payType;
     private String payTypeStr;
     private String orderDesc;//订单描述(其它信息)
+
+
+
 
     public String getOrderStatusStr() {
         if(orderStatus == 0){

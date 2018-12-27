@@ -2,7 +2,9 @@ package com.itheima.ssm.service;
 
 import com.itheima.ssm.domain.Traveller;
 
+import java.util.List;
+
 public interface TravellerService {
 
-    public Traveller findById(String id);
+    public List<Traveller> findById(String id);
 }

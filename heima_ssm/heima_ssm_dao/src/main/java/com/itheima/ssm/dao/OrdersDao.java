@@ -18,4 +18,10 @@ public interface OrdersDao {
      */
     public Orders findById(String id);
 
+
+    /**
+     * 模糊查询
+     * @param fo
+     */
+    List<Orders> findDim(String fo);
 }

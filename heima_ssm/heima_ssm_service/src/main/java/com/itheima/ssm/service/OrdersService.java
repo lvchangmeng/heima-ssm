@@ -9,4 +9,7 @@ public interface OrdersService {
     public List<Orders> findAll(Integer pageNum,Integer pageSize);
 
     public Orders findById(String id);
+
+
+    public List<Orders> findDim(String fo);
 }

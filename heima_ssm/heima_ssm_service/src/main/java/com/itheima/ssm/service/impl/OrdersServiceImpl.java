@@ -28,4 +28,11 @@ public class OrdersServiceImpl implements OrdersService {
     public Orders findById(String id) {
         return ordersDao.findById(id);
     }
+
+    @Override
+    public List<Orders> findDim(String fo) {
+        return ordersDao.findDim(fo);
+    }
+
+
 }
