@@ -35,4 +35,11 @@ public interface ProductDao {
      */
     public Product findById(String id);
 
+    /**
+     * 根据id修改产品信息
+     * @param product
+     * @return
+     */
+    public void updateProduct(Product product);
+
 }

@@ -242,7 +242,7 @@
 								<tbody>
 
 
-									<c:forEach items="${ordersList}" var="orders">
+									<c:forEach items="${page.list}" var="orders">
 
 										<tr>
 											<td><input name="ids" type="checkbox"></td>
@@ -254,7 +254,7 @@
 											<td class="text-center">${orders.orderStatusStr }</td>
 											<td class="text-center">
 												<button type="button" class="btn bg-olive btn-xs">订单</button>
-												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/orders/findById.do?id=${orders.id}'">详情</button>
+												<button type="button" class="btn bg-olive btn-xs" onclick="location.href='${pageContext.request.contextPath}/orders/findById?id=${orders.id}'">详情</button>
 												<button type="button" class="btn bg-olive btn-xs">编辑</button>
 											</td>
 										</tr>
@@ -286,13 +286,13 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共2 页，共14 条数据。 每页
-                            <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            总共${page.pages}页，共${page.total} 条数据。 每页
+                            <select class="form-control" id="changePageSize" onchange="changePageSize()">
+								<c:forEach begin="1" end="${page.total}" var="i">
+									<option ${page.pageSize==i?"selected":""}>${i}</option>
+								</c:forEach>
+
+
                             </select> 条
                         </div>
                     </div>
@@ -300,17 +300,26 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="#" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath}/orders/findAll?pageNum=1&pageSize=${page.pageSize}" aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/orders/findAll?pageNum=${page.pageNum-1}&pageSize=${page.pageSize}">上一页</a></li>
+
+							<c:forEach begin="1" end="${page.pages}" var="i">
+
+								<c:if test="${page.pageNum==i}">
+									<li class="active"><a href="${pageContext.request.contextPath}/orders/findAll?pageNum=${i}&pageSize=${page.pageSize}">${i}</a></li>
+								</c:if>
+
+								<c:if test="${page.pageNum!=i}">
+									<li><a href="${pageContext.request.contextPath}/orders/findAll?pageNum=${i}&pageSize=${page.pageSize}">${i}</a></li>
+								</c:if>
+
+							</c:forEach>
+
+
+                            <li><a href="${pageContext.request.contextPath}/orders/findAll?pageNum=${page.pageNum+1}&pageSize=${page.pageSize}">下一页</a></li>
                             <li>
-                                <a href="#" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath}/orders/findAll?pageNum=${page.pages}&pageSize=${page.pageSize}" aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
@@ -436,7 +445,7 @@
 			var pageSize = $("#changePageSize").val();
 
 			//向服务器发送请求，改变没页显示条数
-			location.href = "${pageContext.request.contextPath}/orders/findAll.do?page=1&pageSize="
+			location.href = "${pageContext.request.contextPath}/orders/findAll.do?pageNum=1&pageSize="
 					+ pageSize;
 		}
 		$(document).ready(function() {

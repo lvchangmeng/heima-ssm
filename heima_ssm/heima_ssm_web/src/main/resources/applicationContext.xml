@@ -33,6 +33,7 @@
 
         <!--将mybatis交给spring管理-->
         <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <!--注入数据源-->
                 <property name="dataSource" ref="dataSource"/>
                 <!-- 传入PageHelper的插件 -->
                 <property name="plugins">
@@ -48,6 +49,7 @@
                                 </bean>
                         </array>
                 </property>
+                <!--起别名-->
                 <property name="typeAliasesPackage" value="com.itheima.ssm.domain"/>
         </bean>
 

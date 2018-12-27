@@ -2,6 +2,7 @@ package com.itheima.ssm.domain;
 
 
 import com.itheima.ssm.utils.StringToDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -106,6 +107,23 @@ public class Product implements Serializable {
     }
 
     public void setProductStatusStr(String productStatusStr) {
+
         this.productStatusStr = productStatusStr;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", productNum='" + productNum + '\'' +
+                ", productName='" + productName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", departureTime=" + departureTime +
+                ", departureTimeStr='" + departureTimeStr + '\'' +
+                ", productPrice=" + productPrice +
+                ", productDesc='" + productDesc + '\'' +
+                ", productStatus=" + productStatus +
+                ", productStatusStr='" + productStatusStr + '\'' +
+                '}';
     }
 }

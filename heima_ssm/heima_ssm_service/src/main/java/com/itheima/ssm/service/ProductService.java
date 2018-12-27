@@ -9,7 +9,7 @@ public interface ProductService {
      * 查询所有的产品信息
      * @return
      */
-    public List<Product> findAll();
+    public List<Product> findAll(Integer pageNum,Integer pageSize);
 
     /**
      * 添加信息方法
@@ -28,5 +28,17 @@ public interface ProductService {
      */
     public List<Product> findDim(String str);
 
+    /**
+     * 根据id查询信息
+     * @param id
+     * @return
+     */
+    public Product findById(String id);
+
+    /**
+     * 修改产品信息
+     * @param product
+     */
+    public void updateProduct(Product product);
 
 }

@@ -26,6 +26,7 @@ public class StringToDate implements Converter<String,Date> {
         String format = sdf.format(date);
         return format;
     }
+
     public static SimpleDateFormat simpleDateFormat(String source){
         SimpleDateFormat sdf = new SimpleDateFormat();
         if (Pattern.matches("^\\d{4}-\\d{2}-\\d{2}$", source)) { // yyyy-MM-dd

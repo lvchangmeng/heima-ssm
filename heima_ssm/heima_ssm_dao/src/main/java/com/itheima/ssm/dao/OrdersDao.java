@@ -11,5 +11,11 @@ public interface OrdersDao {
      */
     public List<Orders> findAll();
 
+    /**
+     * 根据id查询订单详情
+     * @param id
+     * @return
+     */
+    public Orders findById(String id);
 
 }

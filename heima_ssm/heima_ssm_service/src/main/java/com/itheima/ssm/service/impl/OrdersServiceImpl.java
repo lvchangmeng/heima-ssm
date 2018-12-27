@@ -17,10 +17,15 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersDao ordersDao;
 
     @Override
-    public List<Orders> findAll() {
+    public List<Orders> findAll(Integer pageNum,Integer pageSize) {
         //参数pageNum是页码值  参数pageSize代表是每页显示的条数
         //必须写在真正执行代码的方法之前
-        //PageHelper.startPage(1,5);
+        PageHelper.startPage(pageNum,pageSize);
         return ordersDao.findAll();
+    }
+
+    @Override
+    public Orders findById(String id) {
+        return ordersDao.findById(id);
     }
 }
