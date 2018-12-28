@@ -1,5 +1,6 @@
 package com.itheima.ssm.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.itheima.ssm.dao.UserDao;
 import com.itheima.ssm.domain.Role;
 import com.itheima.ssm.domain.UserInfo;
@@ -21,13 +22,19 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
 
+    /**
+     * 用户安全登录方法
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //根据用户名查询用户信息,添加时保证用户名唯一
-        System.out.println(username);
+
         UserInfo userInfo = userDao.findByUsername(username);
-        System.out.println(userInfo);
-        User user = new User(userInfo.getUsername(),"{noop}"+userInfo.getPassword(),userInfo.getStatus()==1?true:false,true,true,true,getRoles(userInfo));
+
+        User user = new User(userInfo.getUsername(),userInfo.getPassword(),userInfo.getStatus()==1?true:false,true,true,true,getRoles(userInfo));
         return user;
     }
 
@@ -42,8 +49,32 @@ public class UserServiceImpl implements UserService {
         return roles;
     }
 
+    /**
+     * 用户查询所有方法
+     * @return
+     */
     @Override
-    public List<UserInfo> findAll() {
-        return userDao.findAll();
+    public List<UserInfo> findAll(String str,Integer pageNum,Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        return userDao.findAll(str);
+    }
+
+    /**
+     * 用户添加方法
+     * @param userInfo
+     */
+    @Override
+    public void saveUser(UserInfo userInfo) {
+        userDao.saveUser(userInfo);
+    }
+
+    /**
+     * 用户查询详情
+     * @param id
+     * @return
+     */
+    @Override
+    public UserInfo findById(String id) {
+        return userDao.findById(id);
     }
 }

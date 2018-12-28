@@ -7,12 +7,23 @@
     <resultMap id="userMap" type="userInfo">
         <id property="id" column="id"></id>
         <collection property="roles" ofType="role" column="id" select="com.itheima.ssm.dao.RoleDao.findById"></collection>
+
     </resultMap>
+
     <select id="findByUsername" resultMap="userMap" parameterType="String">
         select * from users where username = #{username}
     </select>
 
-    <select id="findAll" resultMap="userMap">
-        select * from users
+    <select id="findAll" resultMap="userMap" parameterType="String">
+        select * from users where username like '%${value}%' or email like '%${value}%'
+    </select>
+
+    <insert id="saveUser" parameterType="userInfo">
+        insert into users (username,password,email,phoneNum,status) values(#{username},#{password},#{email},#{phoneNum},#{status})
+    </insert>
+
+    <!--根据id查询用户详情-->
+    <select id="findById" parameterType="String" resultMap="userMap">
+        select * from users where id = #{id}
     </select>
 </mapper>

@@ -8,5 +8,17 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService{
 
-    List<UserInfo> findAll();
+    /**
+     * 查询所有
+     * @return
+     */
+    List<UserInfo> findAll(String str,Integer pageNum,Integer pageSize);
+
+    /**
+     * 保存用户
+     * @param userInfo
+     */
+    void saveUser(UserInfo userInfo);
+
+    UserInfo findById(String id);
 }

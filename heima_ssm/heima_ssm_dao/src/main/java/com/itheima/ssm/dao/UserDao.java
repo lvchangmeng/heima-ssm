@@ -12,5 +12,13 @@ public interface UserDao {
      */
     public UserInfo findByUsername(String username);
 
-    List<UserInfo> findAll();
+    List<UserInfo> findAll(String str);
+
+    /**
+     * 用户保存
+     * @param userInfo
+     */
+    void saveUser(UserInfo userInfo);
+
+    UserInfo findById(String id);
 }
