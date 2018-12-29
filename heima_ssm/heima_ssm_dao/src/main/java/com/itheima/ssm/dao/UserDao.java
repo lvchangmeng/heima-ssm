@@ -1,5 +1,6 @@
 package com.itheima.ssm.dao;
 
+import com.itheima.ssm.domain.QueryVo;
 import com.itheima.ssm.domain.UserInfo;
 
 import java.util.List;
@@ -21,4 +22,13 @@ public interface UserDao {
     void saveUser(UserInfo userInfo);
 
     UserInfo findById(String id);
+
+    UserInfo findByUserId(String id);
+
+    void updateUser(UserInfo userInfo);
+
+    void deleteByuserId(String userId);
+
+
+    void addRoleToUser2(QueryVo qv);
 }

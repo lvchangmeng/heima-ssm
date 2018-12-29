@@ -24,6 +24,7 @@
     <select id="findDim" parameterType="String" resultType="product">
         select * from product where productName like '%${value}%' or cityName like '%${value}%' or productDesc like '%${value}%'
     </select>
+
     <!--根据ID查询-->
     <select id="findById" parameterType="String" resultType="product">
         select * from product where id = #{id}
@@ -36,4 +37,5 @@
 
     where id=#{id}
     </update>
+
 </mapper>

@@ -8,26 +8,18 @@
     <resultMap id="ordersMap" type="orders">
 
        <id property="id" column="id"/>
-       <!-- <result property="orderNum" column="orderNum"/>
-        <result property="orderTime" column="orderTime"/>
-        <result property="peopleCount" column="peopleCount"/>
-        <result property="orderDesc" column="orderDesc"/>
-        <result property="payType" column="payType"/>
-        <result property="orderStatus" column="orderStatus"/>-->
+
         <!--一对一映射关系:配置封装Product对象的内容-->
         <association property="product" javaType="product" column="productId" select="com.itheima.ssm.dao.ProductDao.findById"></association>
-
+        <!--一对一映射关系:配置封装Member对象的内容-->
         <association property="member" javaType="member" column="memberId" select="com.itheima.ssm.dao.MemberDao.findById"></association>
-
+        <!--多对多映射关系:配置封装Traveller对象的内容-->
         <collection property="travellers" ofType="traveller" column="id" select="com.itheima.ssm.dao.TravellerDao.findById" fetchType="lazy"></collection>
-
-
 
     </resultMap>
 
     <select id="findAll" resultMap="ordersMap">
         select * from orders
-       /* select o.*,p.PRODUCTNAME,p.CITYNAME from orders o ,product p where o.productid = p.id*/
     </select>
 
     <select id="findById" parameterType="String" resultMap="ordersMap">

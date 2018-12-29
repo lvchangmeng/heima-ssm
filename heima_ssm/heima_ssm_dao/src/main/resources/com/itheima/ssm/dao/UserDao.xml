@@ -26,4 +26,21 @@
     <select id="findById" parameterType="String" resultMap="userMap">
         select * from users where id = #{id}
     </select>
+    <!--根据id查询用户信息回显修改-->
+    <select id="findByUserId" parameterType="String" resultType="userInfo">
+        select * from users where id = #{id}
+    </select>
+
+    <!--根据名称修改信息,因为用户名唯一且不可修改-->
+    <update id="updateUser" parameterType="userInfo">
+        update users set password = #{password},email = #{email},phoneNum = #{phoneNum},status = #{status} where id = #{id}
+    </update>
+
+    <delete id="deleteByuserId" parameterType="String">
+        delete from users_role where userId = #{id}
+    </delete>
+
+    <insert id="addRoleToUser2" parameterType="queryVo">
+        insert into users_role values (#{userId},#{roleId})
+    </insert>
 </mapper>

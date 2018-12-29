@@ -23,4 +23,18 @@ public class RoleServiceImpl implements RoleService {
     public void saveRole(Role role) {
         roleDao.saveRole(role);
     }
+
+    @Override
+    public List<Role> findUserByIdAndAllRole() {
+        return roleDao.findUserByIdAndAllRole();
+    }
+
+    @Override
+    public List<Role> findById(String id) {
+        return roleDao.findById(id);
+    }
+
+
+
+
 }

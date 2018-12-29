@@ -2,6 +2,7 @@ package com.itheima.ssm.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.itheima.ssm.dao.UserDao;
+import com.itheima.ssm.domain.QueryVo;
 import com.itheima.ssm.domain.Role;
 import com.itheima.ssm.domain.UserInfo;
 import com.itheima.ssm.service.UserService;
@@ -76,5 +77,36 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo findById(String id) {
         return userDao.findById(id);
+    }
+
+    @Override
+    public UserInfo findByUserId(String id) {
+        return userDao.findByUserId(id);
+    }
+
+    /**
+     * 修改用户信息
+     * @param userInfo
+     */
+    @Override
+    public void updateUser(UserInfo userInfo) {
+        userDao.updateUser(userInfo);
+    }
+
+    @Override
+    public void deleteByuserId(String userId) {
+        userDao.deleteByuserId(userId);
+    }
+
+    @Override
+    public void addRoleToUser2(String userId, String[] ids) {
+        QueryVo qv = new QueryVo();
+        for (String id : ids) {
+            qv.setUserId(userId);
+            qv.setRoleId(id);
+
+            userDao.addRoleToUser2(qv);
+        }
+
     }
 }

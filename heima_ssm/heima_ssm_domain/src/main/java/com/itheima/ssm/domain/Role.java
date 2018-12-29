@@ -9,8 +9,18 @@ public class Role implements Serializable{
     private String id;
     private String roleName;
     private String roleDesc;
+    //状态码 :判断当前用户是否由此角色,有则status为1
+    private Integer status;
     private List<Permission> permissions;
     private List<User> users;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;

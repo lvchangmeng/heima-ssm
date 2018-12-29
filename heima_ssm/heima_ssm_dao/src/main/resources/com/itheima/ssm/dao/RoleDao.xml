@@ -8,6 +8,7 @@
         <id property="id" column="id"></id>
         <!--配置多对多映射关系,封装permission对象中的内容-->
         <collection property="permissions" column="id" ofType="permission" select="com.itheima.ssm.dao.PermissionDao.findByRoleId"></collection>
+
     </resultMap>
     <select id="findById" resultMap="roleMap" parameterType="String">
         select * from role where id in(select roleId from users_role where userId = #{id})
@@ -23,4 +24,10 @@
     <insert id="saveRole" parameterType="role">
         insert into role (roleName,roleDesc) values(#{roleName},#{roleDesc})
     </insert>
+
+    <select id="findUserByIdAndAllRole" parameterType="String" resultType="role">
+        select * from role
+    </select>
+
+
 </mapper>

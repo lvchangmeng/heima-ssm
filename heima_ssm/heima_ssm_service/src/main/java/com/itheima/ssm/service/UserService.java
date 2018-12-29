@@ -21,4 +21,12 @@ public interface UserService extends UserDetailsService{
     void saveUser(UserInfo userInfo);
 
     UserInfo findById(String id);
+
+    UserInfo findByUserId(String id);
+
+    void updateUser(UserInfo userInfo);
+
+    void deleteByuserId(String userId);
+
+    void addRoleToUser2(String userId, String[] ids);
 }
