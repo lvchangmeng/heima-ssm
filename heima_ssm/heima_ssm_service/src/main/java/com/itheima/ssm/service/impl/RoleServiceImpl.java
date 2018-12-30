@@ -2,6 +2,7 @@ package com.itheima.ssm.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.itheima.ssm.dao.RoleDao;
+import com.itheima.ssm.domain.QueryVoPermissionToRole;
 import com.itheima.ssm.domain.Role;
 import com.itheima.ssm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,26 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.findById(id);
     }
 
+    @Override
+    public Role findById2(String id) {
+        return roleDao.findById2(id);
+    }
 
+    @Override
+    public void deleteByPermissionId(String roleId) {
+        roleDao.deleteByPermissionId(roleId);
+    }
+
+    @Override
+    public void addPermissionToRole2(String roleId, String[] ids) {
+        QueryVoPermissionToRole qvt = new QueryVoPermissionToRole();
+        for (String id : ids) {
+            System.out.println(id);
+            qvt.setRoleId(roleId);
+            qvt.setPermissionId(id);
+            roleDao.addPermissionToRole2(qvt);
+        }
+    }
 
 
 }

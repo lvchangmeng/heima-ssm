@@ -8,7 +8,16 @@ public class Permission implements Serializable{
     private String id;
     private String permissionName;
     private String url;
+    private Integer flag;
     private List<Role> roles;
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
 
     public String getId() {
         return id;

@@ -7,4 +7,18 @@
     <select id="findByRoleId" resultType="permission" parameterType="String">
         select * from permission where id in (select permissionId from role_permission where roleId = #{RoleId})
     </select>
+
+    <!--查询所有-->
+    <select id="findAll" resultType="permission">
+        select * from permission
+    </select>
+
+    <!--保存资源权限-->
+    <insert id="savePermission" parameterType="permission">
+        insert into permission (permissionName,url) values (#{permissionName},#{url})
+    </insert>
+
+    <select id="findById" resultType="permission" parameterType="String">
+        select * from permission where id in(select permissionId from role_permission where roleId = #{id})
+    </select>
 </mapper>

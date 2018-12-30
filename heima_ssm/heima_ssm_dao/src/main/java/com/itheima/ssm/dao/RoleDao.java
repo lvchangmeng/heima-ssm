@@ -1,5 +1,6 @@
 package com.itheima.ssm.dao;
 
+import com.itheima.ssm.domain.QueryVoPermissionToRole;
 import com.itheima.ssm.domain.Role;
 
 import java.util.List;
@@ -14,4 +15,9 @@ public interface RoleDao {
 
     List<Role> findUserByIdAndAllRole();
 
+    Role findById2(String id);
+
+    void deleteByPermissionId(String roleId);
+
+    void addPermissionToRole2(QueryVoPermissionToRole qvt);
 }

@@ -29,5 +29,15 @@
         select * from role
     </select>
 
+    <select id="findById2" parameterType="String" resultMap="roleMap">
+        select * from role where id = #{id}
+    </select>
 
+    <delete id="deleteByPermissionId" parameterType="String">
+        delete from role_permission where roleId = #{roleId}
+    </delete>
+
+    <insert id="addPermissionToRole2" parameterType="QueryVoPermissionToRole">
+        insert into role_permission (permissionId,roleId) values(#{permissionId},#{roleId})
+    </insert>
 </mapper>

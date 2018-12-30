@@ -15,4 +15,9 @@ public interface RoleService {
     public List<Role> findById(String id);
 
 
+    Role findById2(String id);
+
+    void deleteByPermissionId(String roleId);
+
+    void addPermissionToRole2(String roleId, String[] ids);
 }

@@ -1,13 +1,12 @@
-package com.itheima.ssm.dao;
+package com.itheima.ssm.service;
 
 import com.itheima.ssm.domain.Permission;
 
 import java.util.List;
 
-public interface PermissionDao {
-    public List<Permission> findByRoleId(String RoleId);
+public interface PermissionService {
 
-    List<Permission> findAll();
+    public List<Permission> findAll();
 
     void savePermission(Permission permission);
 
